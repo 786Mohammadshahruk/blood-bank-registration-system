@@ -1,6 +1,7 @@
 package com.sthumbh.bloodbankregistrationsystem.controller;
 
 import com.sthumbh.bloodbankregistrationsystem.dto.RegistrationFormDto;
+import com.sthumbh.bloodbankregistrationsystem.entity.RegistrationForm;
 import com.sthumbh.bloodbankregistrationsystem.service.RegistrationFormService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class RegistrationFormController {
     private RegistrationFormService registrationFormService;
 
    @PostMapping(path = "/create")
-    public ResponseEntity<RegistrationFormDto> createRegistrationForm(@RequestBody RegistrationFormDto registrationFormDto){
+    public ResponseEntity<RegistrationForm> createRegistrationForm(@RequestBody RegistrationFormDto registrationFormDto){
        log.info("Creating New Registration Form.");
-       return new ResponseEntity<>(registrationFormService.createRegistration(registrationFormDto), HttpStatus.CREATED);
+       return new ResponseEntity<>(registrationFormService.createRegistration(registrationFormDto), HttpStatus.OK);
    }
 }

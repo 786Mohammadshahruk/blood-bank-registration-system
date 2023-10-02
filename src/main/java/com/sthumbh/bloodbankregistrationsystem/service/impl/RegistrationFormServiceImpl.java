@@ -4,7 +4,6 @@ import com.sthumbh.bloodbankregistrationsystem.dto.RegistrationFormDto;
 import com.sthumbh.bloodbankregistrationsystem.entity.RegistrationForm;
 import com.sthumbh.bloodbankregistrationsystem.repository.RegistrationFormRepository;
 import com.sthumbh.bloodbankregistrationsystem.service.RegistrationFormService;
-import com.sthumbh.bloodbankregistrationsystem.transformer.RegistrationFormTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +11,11 @@ import org.springframework.stereotype.Service;
 public class RegistrationFormServiceImpl implements RegistrationFormService {
     @Autowired
     private RegistrationFormRepository registrationFormRepository;
-    @Autowired
-    private RegistrationFormTransformer registrationFormTransformer;
 
-    private void mapRegistration(RegistrationFormDto registrationFormDto, RegistrationForm registrationForm){
+
+    @Override
+    public RegistrationForm createRegistration(RegistrationFormDto registrationFormDto) {
+        RegistrationForm registrationForm = new RegistrationForm();
         registrationForm.setStateCode(registrationFormDto.getStateCode());
         registrationForm.setDistrictList(registrationFormDto.getDistrictList());
         registrationForm.setHospCity(registrationFormDto.getHospCity());
@@ -29,7 +29,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
         registrationForm.setHospFax(registrationFormDto.getHospFax());
         registrationForm.setLicenceNo(registrationFormDto.getLicenceNo());
         registrationForm.setLicenceFromDate(registrationFormDto.getLicenceFromDate());
-        registrationForm.setLicenceToDate(registrationFormDto.getLicenceToDate());
+        registrationForm.setLicenceToDate(registrationForm.getLicenceToDate());
         registrationForm.setComponentFacility(registrationFormDto.getComponentFacility());
         registrationForm.setApheresisFacility(registrationFormDto.getApheresisFacility());
         registrationForm.setHelplineNo(registrationFormDto.getHelplineNo());
@@ -47,10 +47,10 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
         registrationForm.setTtiType(registrationFormDto.getTtiType());
         registrationForm.setChargeName(registrationFormDto.getChargeName());
         registrationForm.setChargeRs(registrationFormDto.getChargeRs());
-        registrationForm.setAreaNameDetails(registrationFormDto.getAreaNameDetails());
-        registrationForm.setAreaUsability(registrationFormDto.getAreaUsability());
-        registrationForm.setRoomNo(registrationFormDto.getRoomNo());
-        registrationForm.setStorageName(registrationFormDto.getStorageName());
+        registrationForm.setAreaNameDetails(registrationForm.getAreaNameDetails());
+        registrationForm.setAreaUsability(registrationForm.getAreaUsability());
+        registrationForm.setRoomNo(registrationForm.getRoomNo());
+        registrationForm.setStorageName(registrationForm.getStorageName());
         registrationForm.setStorageType(registrationFormDto.getStorageType());
         registrationForm.setAreaName(registrationFormDto.getAreaName());
         registrationForm.setRefreshmentItem(registrationFormDto.getRefreshmentItem());
@@ -58,11 +58,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
         registrationForm.setHMode(registrationFormDto.getHMode());
         registrationForm.setState(registrationFormDto.getState());
         registrationForm.setDistrict(registrationFormDto.getDistrict());
+        return registrationFormRepository.save(registrationForm);
     }
-    @Override
-    public RegistrationFormDto createRegistration(RegistrationFormDto registrationFormDto) {
-     RegistrationForm registrationForm = new RegistrationForm();
-     mapRegistration(registrationFormDto,registrationForm);
-     return  registrationFormTransformer.MAP_TO_DTO.apply(registrationFormRepository.save(registrationForm));
-    }
+
 }
