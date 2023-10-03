@@ -12,9 +12,12 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     @Autowired
     private RegistrationFormRepository registrationFormRepository;
 
-
     @Override
     public RegistrationForm createRegistration(RegistrationFormDto registrationFormDto) {
+        return registrationFormRepository.save(getRegistrationFormDetails(registrationFormDto));
+    }
+
+    private RegistrationForm getRegistrationFormDetails(RegistrationFormDto registrationFormDto) {
         RegistrationForm registrationForm = new RegistrationForm();
         registrationForm.setStateCode(registrationFormDto.getStateCode());
         registrationForm.setDistrictList(registrationFormDto.getDistrictList());
@@ -58,7 +61,7 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
         registrationForm.setHMode(registrationFormDto.getHMode());
         registrationForm.setState(registrationFormDto.getState());
         registrationForm.setDistrict(registrationFormDto.getDistrict());
-        return registrationFormRepository.save(registrationForm);
+        return registrationForm;
     }
 
 }

@@ -1,16 +1,21 @@
 package com.sthumbh.bloodbankregistrationsystem.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "registration_form")
+@AllArgsConstructor
+@NoArgsConstructor
 public class RegistrationForm {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "state_code")
     private Long stateCode;
     @Column(name = "district_list")
@@ -44,7 +49,7 @@ public class RegistrationForm {
     private String componentFacility;
     @Column(name = "apheresis_facility")
     private String apheresisFacility;
-    @Column(name ="helpline_no")
+    @Column(name = "helpline_no")
     private String helplineNo;
     @Column(name = "hosp_add1")
     private String hospAdd1;
@@ -62,7 +67,7 @@ public class RegistrationForm {
     private String noOfBed;
     @Column(name = "donor_type")
     private String donorType;
-    @Column(name ="donation_type")
+    @Column(name = "donation_type")
     private String donationType;
     @Column(name = "component_type")
     private String componentType;

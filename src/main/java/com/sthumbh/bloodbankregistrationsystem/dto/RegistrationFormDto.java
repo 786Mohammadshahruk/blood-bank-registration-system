@@ -1,12 +1,18 @@
 package com.sthumbh.bloodbankregistrationsystem.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RegistrationFormDto {
+
 
     private Long stateCode;
 
@@ -14,12 +20,12 @@ public class RegistrationFormDto {
 
     private String hospCity;
 
+    @NotEmpty(message = "bldBankName can not be null or empty")
     private String bldBankName;
 
     private String parentHospName;
 
     private String hospShortName;
-
 
     private String hospType;
 
@@ -32,6 +38,7 @@ public class RegistrationFormDto {
     private String hospFax;
 
     private String licenceNo;
+
 
     private String licenceFromDate;
 
