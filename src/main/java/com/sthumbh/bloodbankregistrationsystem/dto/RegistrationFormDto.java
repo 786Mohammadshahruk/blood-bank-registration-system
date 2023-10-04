@@ -23,6 +23,7 @@ public class RegistrationFormDto {
     @NotEmpty(message = "bldBankName can not be null or empty")
     private String bldBankName;
 
+    @NotEmpty(message = "parentHospName can not be null or empty")
     private String parentHospName;
 
     private String hospShortName;

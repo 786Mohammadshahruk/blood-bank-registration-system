@@ -1,5 +1,6 @@
 package com.sthumbh.bloodbankregistrationsystem.controller;
 
+import com.sthumbh.bloodbankregistrationsystem.dto.BloodBankDetailsResponseDto;
 import com.sthumbh.bloodbankregistrationsystem.dto.RegistrationFormDto;
 import com.sthumbh.bloodbankregistrationsystem.entity.RegistrationForm;
 import com.sthumbh.bloodbankregistrationsystem.response.MetaData;
@@ -12,10 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -30,7 +30,19 @@ public class RegistrationFormController {
         ResourceData<RegistrationForm> resourceData = new ResourceData();
         resourceData.setData(registrationFormService.createRegistration(registrationFormDto));
         UserResponseModel userResponseModel = UserResponseModel.builder()
-                .metaData(new MetaData(StatusCodes.SUCCESS_STATUS, StatusCodes.SUCCESS_CODE, "Success", "v1"))
+                .metaData(new MetaData(StatusCodes.SUCCESS_STATUS, StatusCodes.SUCCESS_CODE, "Success", null, "v1"))
+                .resourceData(resourceData)
+                .build();
+        return new ResponseEntity<>(userResponseModel, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/getBloodBankDetails")
+    public ResponseEntity<UserResponseModel> getBloodBankDetails(@RequestParam(name = "districtCode") String districtCode,
+                                                                 @RequestParam(name = "stateCode") String stateCode) {
+        ResourceData<List<BloodBankDetailsResponseDto>> resourceData = new ResourceData();
+        resourceData.setData(registrationFormService.getBloodBankDetails(stateCode, districtCode));
+        UserResponseModel userResponseModel = UserResponseModel.builder()
+                .metaData(new MetaData(StatusCodes.SUCCESS_STATUS, StatusCodes.SUCCESS_CODE, "Success", null, "v1"))
                 .resourceData(resourceData)
                 .build();
         return new ResponseEntity<>(userResponseModel, HttpStatus.OK);

@@ -1,11 +1,14 @@
 package com.sthumbh.bloodbankregistrationsystem.service.impl;
 
+import com.sthumbh.bloodbankregistrationsystem.dto.BloodBankDetailsResponseDto;
 import com.sthumbh.bloodbankregistrationsystem.dto.RegistrationFormDto;
 import com.sthumbh.bloodbankregistrationsystem.entity.RegistrationForm;
 import com.sthumbh.bloodbankregistrationsystem.repository.RegistrationFormRepository;
 import com.sthumbh.bloodbankregistrationsystem.service.RegistrationFormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RegistrationFormServiceImpl implements RegistrationFormService {
@@ -15,6 +18,11 @@ public class RegistrationFormServiceImpl implements RegistrationFormService {
     @Override
     public RegistrationForm createRegistration(RegistrationFormDto registrationFormDto) {
         return registrationFormRepository.save(getRegistrationFormDetails(registrationFormDto));
+    }
+
+    @Override
+    public List<BloodBankDetailsResponseDto> getBloodBankDetails(String stateCode, String districtCode) {
+        return registrationFormRepository.getBloodBankDetails(stateCode, Long.parseLong(districtCode));
     }
 
     private RegistrationForm getRegistrationFormDetails(RegistrationFormDto registrationFormDto) {
